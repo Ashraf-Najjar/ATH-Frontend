@@ -1,0 +1,50 @@
+@import "../../../assets/scss/variables";
+
+.sidenav-header{
+    padding-top: 24px;
+    text-align: center;
+    > img {
+        border-radius: 100%;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+
+    .header-text {
+        height: 3rem;
+        color: $primary-color;
+        > h2 {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+
+        > p {
+            margin: 0;
+            font-size: 0.8rem;
+        }
+    }
+
+}
+
+.hide-header-text {
+    opacity: 0;
+    height: 0px !important;
+}
+
+.menu-item {
+    border-left: 5px solid;
+    border-left-color: rgb(0, 0, 0, 0);
+}
+.selected-menu-item {
+    border-left-color: $primary-color !important;
+}
+
+
+mat-nav-list a span, 
+mat-nav-list a mat-icon {
+    color: $primary-color !important;
+}
+
+:host * {
+    transition: all 500ms ease-in-out;
+}

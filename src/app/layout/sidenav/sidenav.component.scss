@@ -1,0 +1,31 @@
+@import "../../../assets/scss/variables";
+
+mat-toolbar {
+    position: relative;
+    z-index: 5;
+    background-color: $primary-color;
+}
+.content {
+    padding: 24px;
+}
+
+mat-icon {
+    color: $secondary-color;
+}
+
+mat-sidenav-container {
+    height: calc(100vh - 64px);
+}
+
+mat-sidenav-content {
+    background-color: $primary-white-color;
+}
+
+mat-sidenav {
+    background-color: $secondary-color;
+    
+}
+
+mat-sidenav, mat-sidenav-content {
+    transition: all 500ms ease-in-out;
+}
