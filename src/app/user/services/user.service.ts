@@ -17,4 +17,8 @@ export class UserService {
     const url = `${BASE_URL}user/list` + queryParams;
     return this.http.get<IUser[]>(url);
   }
+
+  createUser(user: any) {
+    return this.http.post<{ message: string; ViolationId: string }>(BASE_URL + "user/create", {user})
+}
 }

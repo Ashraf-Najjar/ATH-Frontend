@@ -1,10 +1,28 @@
 @import "../../../assets/scss/variables";
 
+
+.container {
+    height: 100vh;
+    max-height: 100vh;
+}
+
 mat-toolbar {
     position: relative;
     z-index: 5;
     background-color: $primary-color;
+    span {
+        color: $secondary-color;
+    }
 }
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+mat-sidenav-container {
+    height: calc(100vh - 64px);
+}
+
 .content {
     padding: 24px;
 }
@@ -13,9 +31,7 @@ mat-icon {
     color: $secondary-color;
 }
 
-mat-sidenav-container {
-    height: calc(100vh - 64px);
-}
+
 
 mat-sidenav-content {
     background-color: $primary-white-color;
@@ -29,3 +45,4 @@ mat-sidenav {
 mat-sidenav, mat-sidenav-content {
     transition: all 500ms ease-in-out;
 }
+

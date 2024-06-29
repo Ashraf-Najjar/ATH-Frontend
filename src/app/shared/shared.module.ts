@@ -3,20 +3,24 @@ import { CommonModule } from '@angular/common';
 import { TableComponent } from './table/table.component';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
-
+import { PageTitleComponent } from './page-title/page-title.component';
+import {MatCardModule} from '@angular/material/card';
 
 
 @NgModule({
   declarations: [
-    TableComponent
+    TableComponent,
+    PageTitleComponent
   ],
   imports: [
     CommonModule,
     MatTableModule,
-    RouterModule
+    RouterModule,
+    MatCardModule
   ],
   exports:[
     TableComponent,
+    PageTitleComponent
   ]
 })
 export class SharedModule { }

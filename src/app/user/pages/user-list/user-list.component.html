@@ -1,0 +1,14 @@
+<div class="list-container">
+    <div class="page-title-container">
+        <app-page-title title="Users List"></app-page-title>
+    </div>
+    <div class="table-container mat-elevation-z8">
+        <app-table [config]="config" [data]="dataSource"></app-table>
+    </div>
+    <div class="footer-container">
+        <mat-paginator #paginator [length]="dataSize" [pageSize]="rpp" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="dataSource.length > 0"></mat-paginator>
+        <button mat-mini-fab class="create-btn-icon" (click)="navigateToCreate()"  aria-label="Example icon button with a menu icon">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>

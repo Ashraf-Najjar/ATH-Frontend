@@ -15,6 +15,11 @@ export const  tableConfig = [
     {
       key:'createdAt', 
       label: 'Create At',
-      value: (data: any) => new Date(data.createdAt)
+      value: (data: any) => data.createdAt ? new Date(data.createdAt).toLocaleDateString() : '-'
+    },
+    {
+      key:'actions', 
+      label: 'Actions',
+      value: (data: any) => data.createdAt ? new Date(data.createdAt).toLocaleDateString() : '-'
     }
   ]
