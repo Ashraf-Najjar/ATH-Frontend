@@ -10,7 +10,7 @@ const BASE_URL = environment.apiUrl;
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getUsers(skip: number, limit: number): Observable<IUser[]> {
     const queryParams = `?skip=${skip}&limit=${limit}`;
@@ -18,7 +18,17 @@ export class UserService {
     return this.http.get<IUser[]>(url);
   }
 
-  createUser(user: any) {
-    return this.http.post<{ message: string; ViolationId: string }>(BASE_URL + "user/create", {user})
-}
+  getUser(id: string): Observable<IUser> {
+    // const queryParams = `?id=${id}`;
+    const url = `${BASE_URL}user/${id}`;
+    return this.http.get<IUser>(url);
+  }
+
+  createUser(user: IUser) {
+    return this.http.post<{ message: string; ViolationId: string }>(BASE_URL + "user/create", { user })
+  }
+
+  updateUser(id: string, user: IUser) {
+    return this.http.post<{ message: string; ViolationId: string }>(BASE_URL + "user/update", { id,user })
+  }
 }

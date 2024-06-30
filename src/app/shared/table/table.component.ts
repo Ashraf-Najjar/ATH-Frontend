@@ -2,10 +2,18 @@ import { Component, Input, SimpleChanges, ChangeDetectionStrategy } from '@angul
 import { MatTableDataSource } from '@angular/material/table';
 
 
+interface ActionConfig {
+  key: string,
+  label: string,
+  icon: string,
+  color?: string,
+  handler: any
+}
 interface TableConfig {
   key: string,
   label: string,
   value?: object | string;
+  actions?: ActionConfig[]
 }
 
 @Component({
@@ -32,14 +40,20 @@ export class TableComponent {
   }
 
   initializeTable(): void {
-    console.log("here we go")
     this.displayedColumns = this.config.map(column => column.key);
     // Only update dataSource if data or config changes
     if (this.data && this.config) {
       const updatedData = this.data.map(item => {
         const newItem = { ...item };
-        this.config.forEach(column => {
+        this.config.forEach((column, index) => {
           newItem[`${column.key}___value`] = column.value && typeof column.value == "function" ? column.value(newItem) : newItem[column.key];
+          // if(column.key !== "actions"){
+
+          // }else{
+          //   // for(let action of column.actions){
+          //   //   newItem[`${action.key}${index}`] = column.value && typeof column.value == "function" ? column.value(newItem) : newItem[column.key];
+          //   // }
+          // }
         });
         return newItem;
       });

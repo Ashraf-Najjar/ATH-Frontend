@@ -1,58 +1,96 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { IUser } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss']
 })
-export class UserFormComponent implements OnInit {
-  
+export class UserFormComponent implements OnInit, OnDestroy {
+
   formGroup!: FormGroup;
   isLoading = false;
 
+  userId!: string;
+  userResponse!: IUser;
+
+  unSubscribeAll = new Subject<void>();
+
   constructor(
-    private userService: UserService,
-    private router: Router
-  ){}
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
     this.initForm();
+    this.userId = this.activeRoute.snapshot.params['id'];
+    if(this.userId){
+      this.patchUserData();
+    }
   }
-  initForm(){
+
+  patchUserData(){
+    this.activeRoute.data.pipe(takeUntil(this.unSubscribeAll)).subscribe({
+      next: (res: { [key: string]: Data }) => {
+        if (!res) {
+          this.handleNavigate();
+          return;
+        }
+        this.userResponse = res?.['user']?.['user'];
+        this.formGroup.patchValue(this.userResponse);
+
+      }
+    })
+  }
+
+  initForm() {
     this.formGroup = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl(''),
-      email: new FormControl(''),
-      phone: new FormControl('')
+      lastName: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phone: new FormControl('', [Validators.required])
     })
 
   }
-  getErrorMessage() {
-    if (this.formGroup.controls['email'].hasError('required')) {
-      return 'You must enter a value';
+
+
+  create() {
+    if (this.formGroup.invalid) {
+      return;
     }
-
-    return this.formGroup.controls['email'].hasError('email') ? 'Not a valid email' : '';
-  }
-
-  create(){
-      if (this.formGroup.invalid) {
-        return;
-      }
-      this.isLoading = true;
+    this.isLoading = true;
+    if(!this.userId){
       this.userService.createUser(this.formGroup.value).subscribe((res: any) => {
         console.log(res)
-        this.router.navigate(["/user/list"]);
+        this.handleNavigate();
       })
-      // if (this.mode === "create") {
-      //   this.violationApiService.addViolation(this.formGroup.value);
-      // } else {
-      //   this.violationApiService.updateViolation(this.violation._id, this.formGroup.value);
-      // }
-      // this.formGroup.reset();
+    }else{
+      this.userService.updateUser(this.userId, this.formGroup.value).subscribe((res: any) => {
+        console.log(res)
+        this.handleNavigate();
+      })
+    }
+
+    // if (this.mode === "create") {
+    //   this.violationApiService.addViolation(this.formGroup.value);
+    // } else {
+    //   this.violationApiService.updateViolation(this.violation._id, this.formGroup.value);
     // }
+    // this.formGroup.reset();
+    // }
+  }
+
+  handleNavigate(){
+    this.router.navigate(["/user/list"]);
+  }
+
+  ngOnDestroy() {
+    this.unSubscribeAll.next();
+    this.unSubscribeAll.complete();
   }
 }

@@ -28,6 +28,7 @@
 
 .footer-container {
   margin-top: 20px;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   > mat-paginator {
@@ -62,4 +63,12 @@ mat-card-actions {
 .btn-save {
   background-color: $primary-color !important;
   color: $primary-white-color !important;
+}
+
+
+
+
+// General
+mat-icon{
+  cursor: pointer;
 }

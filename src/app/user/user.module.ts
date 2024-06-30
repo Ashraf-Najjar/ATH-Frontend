@@ -12,6 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { UserResolver } from './reolvers/user.resolver';
 
 
 @NgModule({
@@ -30,7 +32,11 @@ import { MatButtonModule } from '@angular/material/button';
     MatPaginatorModule,
     MatButtonModule,
     MatCardModule,
+    MatTooltipModule,
     SharedModule
+  ],
+  providers: [
+    UserResolver
   ]
 })
 export class UserModule { }

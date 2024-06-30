@@ -1,4 +1,6 @@
-export const  tableConfig = [
+import { UserListComponent } from "../pages/user-list/user-list.component";
+
+export const  tableConfig = (parent: UserListComponent) =>  [
     {
       key:'name', 
       label: 'Name',
@@ -20,6 +22,26 @@ export const  tableConfig = [
     {
       key:'actions', 
       label: 'Actions',
-      value: (data: any) => data.createdAt ? new Date(data.createdAt).toLocaleDateString() : '-'
+      actions: [
+        {
+          key: 'update',
+          icon: 'edit',
+          label: 'Update',
+          handler: (data: any) => parent.router.navigate(['user/edit/',data._id ])
+        },
+        {
+          key: 'delete',
+          icon: 'delete',
+          // color: '#FF4500',
+          label: 'Delete',
+          handler: () => parent.router.navigate(['category/list'])
+        },
+        {
+          key: 'enable',
+          icon: 'toggle_off',
+          label: 'Enable',
+          handler: () => parent.router.navigate(['category/list'])
+        },
+      ]
     }
   ]

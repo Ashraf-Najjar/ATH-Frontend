@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class UserListComponent implements OnInit {
   dataSource: any = [];
   subscriber = new Subject();
-  config = tableConfig;
+  config = tableConfig(this);
 
   // Pagination Config
   rpp = 20;

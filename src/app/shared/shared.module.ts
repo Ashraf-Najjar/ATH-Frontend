@@ -5,6 +5,8 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { PageTitleComponent } from './page-title/page-title.component';
 import {MatCardModule} from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -15,6 +17,8 @@ import {MatCardModule} from '@angular/material/card';
   imports: [
     CommonModule,
     MatTableModule,
+    MatIconModule,
+    MatTooltipModule,
     RouterModule,
     MatCardModule
   ],
