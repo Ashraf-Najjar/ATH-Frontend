@@ -1,3 +1,4 @@
+import { IUser } from "../interfaces/user.interface";
 import { UserListComponent } from "../pages/user-list/user-list.component";
 
 export const  tableConfig = (parent: UserListComponent) =>  [
@@ -27,20 +28,28 @@ export const  tableConfig = (parent: UserListComponent) =>  [
           key: 'update',
           icon: 'edit',
           label: 'Update',
-          handler: (data: any) => parent.router.navigate(['user/edit/',data._id ])
+          handler: (user: IUser) => parent.router.navigate(['user/edit/',user._id])
         },
         {
           key: 'delete',
           icon: 'delete',
           // color: '#FF4500',
           label: 'Delete',
-          handler: () => parent.router.navigate(['category/list'])
+          handler: (user: IUser) => parent.userService.deleteUser(user._id).subscribe((res: any) => {})
         },
         {
           key: 'enable',
-          icon: 'toggle_off',
+          icon: 'toggle_on',
           label: 'Enable',
-          handler: () => parent.router.navigate(['category/list'])
+          handler: (user: IUser) => parent.userService.enableUser(user._id).subscribe((res: any) => {}),
+          visible: (user: IUser) => !user.enabled
+        },
+        {
+          key: 'disable',
+          icon: 'toggle_off',
+          label: 'Disable',
+          handler: (user: IUser) => parent.userService.disableUser(user._id).subscribe((res: any) => {}),
+          visible: (user: IUser) => !!user.enabled
         },
       ]
     }

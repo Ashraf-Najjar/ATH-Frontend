@@ -31,4 +31,16 @@ export class UserService {
   updateUser(id: string, user: IUser) {
     return this.http.post<{ message: string; ViolationId: string }>(BASE_URL + "user/update", { id,user })
   }
+
+  deleteUser(id: string) {
+    return this.http.post<{ message: string; ViolationId: string }>(BASE_URL + "user/delete", { id })
+  }
+
+  enableUser(id: string) {
+    return this.http.post<{ message: string; ViolationId: string }>(BASE_URL + "user/enable", { id })
+  }
+
+  disableUser(id: string) {
+    return this.http.post<{ message: string; ViolationId: string }>(BASE_URL + "user/disable", { id })
+  }
 }

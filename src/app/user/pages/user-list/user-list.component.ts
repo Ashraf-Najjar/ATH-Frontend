@@ -24,7 +24,7 @@ export class UserListComponent implements OnInit {
   isLoading = false;
 
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     public router: Router
   ) { }
 

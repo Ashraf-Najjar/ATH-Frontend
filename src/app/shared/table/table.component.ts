@@ -7,7 +7,8 @@ interface ActionConfig {
   label: string,
   icon: string,
   color?: string,
-  handler: any
+  handler: any,
+  visible?: any
 }
 interface TableConfig {
   key: string,
@@ -46,18 +47,19 @@ export class TableComponent {
       const updatedData = this.data.map(item => {
         const newItem = { ...item };
         this.config.forEach((column, index) => {
-          newItem[`${column.key}___value`] = column.value && typeof column.value == "function" ? column.value(newItem) : newItem[column.key];
-          // if(column.key !== "actions"){
-
-          // }else{
-          //   // for(let action of column.actions){
-          //   //   newItem[`${action.key}${index}`] = column.value && typeof column.value == "function" ? column.value(newItem) : newItem[column.key];
-          //   // }
-          // }
+          if(column.key !== "actions"){
+            newItem[`${column.key}___value`] = column.value && typeof column.value == "function" ? column.value(newItem) : newItem[column.key];
+          }else{
+            if(column.actions){
+              for(let action of column.actions){
+                newItem[`${action.key}${index}`] = !action.visible || action.visible(newItem);
+              }
+            }
+          }
         });
         return newItem;
       });
-
+      console.log('updatedData ', updatedData)
       this.dataSource.data = updatedData;
     }
   }
