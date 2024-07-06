@@ -1,28 +1,36 @@
-<table mat-table [dataSource]="dataSource" >
-    <ng-container *ngFor="let column of config;index as index; trackBy: trackByFn">
-      <ng-container [matColumnDef]="column.key">
-        <th mat-header-cell *matHeaderCellDef sticky> {{column.label}} </th>
-        <ng-container *ngIf="column.key !== 'actions'; else actionsTemplate">
-          <td mat-cell *matCellDef="let element"> {{element[column.key + '___value'] }} </td>
-        </ng-container>
-        <ng-template #actionsTemplate>
-          <td mat-cell *matCellDef="let element">
-            <ng-container *ngFor="let action of column.actions">
-              <mat-icon 
-                *ngIf="element[action.key + index]"
-                (click)="action.handler(element)" 
-                [matTooltip]="action.label"
-                [fontSet]="'material-icons-outlined'" 
-                [ngStyle]="{'color': action.color ?? '#495464'}"
-              > 
-                {{action.icon}} 
-              </mat-icon>
-            </ng-container>
-          </td>
-        </ng-template>
-      </ng-container>
+<table mat-table [dataSource]="dataSource">
+  <!-- Columns  -->
+  <ng-container *ngFor="let column of config.cols; trackBy: trackByFn">
+    <ng-container [matColumnDef]="column.key">
+      <!-- Column Name -->
+      <th mat-header-cell *matHeaderCellDef sticky>{{ column.label }}</th>
+      <!-- Cell Value -->
+      <td [ngStyle]="{background: config.background(element)}" mat-cell *matCellDef="let element">
+        {{ element[column.key + "___value"] }}
+      </td>
     </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns" sticky></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container [matColumnDef]="'actions'">
+    <!-- Actions Column Name -->
+    <th mat-header-cell *matHeaderCellDef sticky>Actions</th>
+    <!-- Actions For Each Row -->
+    <td mat-cell *matCellDef="let element" [ngStyle]="{background: config.background(element)}">
+      <!-- Actions Allowed For Each Row -->
+      <ng-container *ngFor="let action of config.actions; index as index">
+        <mat-icon
+          *ngIf="element[action.key + index]"
+          (click)="action.handler(element)"
+          [matTooltip]="action.label"
+          [fontSet]="'material-icons-outlined'"
+          [ngStyle]="{ color: action.color ?? '#495464' }"
+        >
+          {{ action.icon }}
+        </mat-icon>
+      </ng-container>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns" sticky></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>

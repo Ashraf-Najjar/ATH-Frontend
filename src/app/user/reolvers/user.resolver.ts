@@ -3,12 +3,15 @@ import { Resolve } from "@angular/router";
 import { ActivatedRouteSnapshot } from "@angular/router";
 import { Observable, Subject } from "rxjs";
 import { takeUntil } from 'rxjs/operators';
-import { UserService } from "../services/user.service";
+import { UserRestService } from "../services/user-rest.service";
+import { UserFactoryService } from "../services/user-factory.service";
+import { IUserService } from "../interfaces/user.service.interface";
 
 @Injectable()
 export class UserResolver implements Resolve<any> {
   private _unsubscribeAll: Subject<any>;
-  constructor(private userService: UserService) {
+  userService: IUserService = this.userFactoryService.getUserService();
+  constructor(private userFactoryService: UserFactoryService) {
     this._unsubscribeAll = new Subject();
   }
 

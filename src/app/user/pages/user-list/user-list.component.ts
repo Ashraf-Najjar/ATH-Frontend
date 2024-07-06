@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { UserRestService } from '../../services/user-rest.service';
 import { Subject, takeUntil } from 'rxjs';
 import { tableConfig } from '../../config/table.config';
 import { Router } from '@angular/router';
+import { ITableConfig } from 'src/app/shared/table/table.component';
+import { IUserService } from '../../interfaces/user.service.interface';
+import { UserFactoryService } from '../../services/user-factory.service';
 
 
 @Component({
@@ -13,7 +16,7 @@ import { Router } from '@angular/router';
 export class UserListComponent implements OnInit {
   dataSource: any = [];
   subscriber = new Subject();
-  config = tableConfig(this);
+  config: ITableConfig = tableConfig(this);
 
   // Pagination Config
   rpp = 20;
@@ -23,8 +26,10 @@ export class UserListComponent implements OnInit {
 
   isLoading = false;
 
+  userService: IUserService = this.userFactoryService.getUserService();
+
   constructor(
-    public userService: UserService,
+    public userFactoryService: UserFactoryService,
     public router: Router
   ) { }
 

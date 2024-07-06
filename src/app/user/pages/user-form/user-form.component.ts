@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../services/user.service';
+import { UserRestService } from '../../services/user-rest.service';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { IUser } from '../../interfaces/user.interface';
+import { UserFactoryService } from '../../services/user-factory.service';
+import { IUserService } from '../../interfaces/user.service.interface';
 
 @Component({
   selector: 'app-user-form',
@@ -20,10 +22,12 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   unSubscribeAll = new Subject<void>();
 
+  userService: IUserService = this.userFactoryService.getUserService();
+
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private userService: UserService
+    private userFactoryService: UserFactoryService
   ) { }
 
   ngOnInit(): void {

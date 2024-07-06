@@ -2,19 +2,24 @@ import { Component, Input, SimpleChanges, ChangeDetectionStrategy } from '@angul
 import { MatTableDataSource } from '@angular/material/table';
 
 
-interface ActionConfig {
-  key: string,
-  label: string,
-  icon: string,
-  color?: string,
-  handler: any,
-  visible?: any
+interface IActionConfig {
+  key: string;
+  label: string;
+  icon: string;
+  handler: (item: any) => void;
+  color?: string;
+  visible?: (item: any) => boolean;
 }
-interface TableConfig {
-  key: string,
-  label: string,
-  value?: object | string;
-  actions?: ActionConfig[]
+
+interface IColumnConfig {
+  key: string;
+  label: string;
+  value?: (item: any) => any | string;
+}
+export interface ITableConfig {
+  cols: IColumnConfig[];
+  actions: IActionConfig[];
+  background?: any
 }
 
 @Component({
@@ -24,7 +29,7 @@ interface TableConfig {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent {
-  @Input() config: TableConfig[] = [];
+  @Input() config!: ITableConfig;
   @Input() data: any[] = [];
 
   dataSource = new MatTableDataSource<any>([]);
@@ -41,30 +46,32 @@ export class TableComponent {
   }
 
   initializeTable(): void {
-    this.displayedColumns = this.config.map(column => column.key);
+    this.displayedColumns = this.config.cols.map(column => column.key);
+    this.displayedColumns.push('actions');
+
     // Only update dataSource if data or config changes
     if (this.data && this.config) {
       const updatedData = this.data.map(item => {
         const newItem = { ...item };
-        this.config.forEach((column, index) => {
-          if(column.key !== "actions"){
-            newItem[`${column.key}___value`] = column.value && typeof column.value == "function" ? column.value(newItem) : newItem[column.key];
-          }else{
-            if(column.actions){
-              for(let action of column.actions){
-                newItem[`${action.key}${index}`] = !action.visible || action.visible(newItem);
-              }
-            }
-          }
+
+        // Handling cells data
+        this.config.cols.forEach((column) => {
+          newItem[`${column.key}___value`] = column.value && typeof column.value == "function" ? column.value(newItem) : newItem[column.key];
         });
+        
+        // Handling actions for each row
+        this.config.actions.forEach((action, index) => {
+          newItem[`${action.key}${index}`] = !action.visible || action.visible(newItem);
+        });
+
         return newItem;
       });
-      console.log('updatedData ', updatedData)
+
       this.dataSource.data = updatedData;
     }
   }
 
   trackByFn(index: number, item: any): any {
-    return item.id; // Adjust as needed based on unique identifier
+    return item._id || index; // Use item.id if available, otherwise use the index
   }
 }
