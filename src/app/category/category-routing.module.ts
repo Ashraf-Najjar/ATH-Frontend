@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { CategoryListComponent } from "./pages/category-list/category-list.component";
 import { CategoryFormComponent } from "./pages/category-form/category-form.component";
+import { CategoryResolver } from "./resolvers/category.resolver";
 
 const routes: Routes = [
     {
@@ -12,6 +13,13 @@ const routes: Routes = [
       path: 'create',
       component: CategoryFormComponent,
     },
+    {
+      path: 'edit/:id',
+      component: CategoryFormComponent,
+      resolve: {
+        category: CategoryResolver
+      }
+    }
   ]
   
   @NgModule({

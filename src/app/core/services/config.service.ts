@@ -5,15 +5,24 @@ import { Injectable } from '@angular/core';
 })
 export class ConfigService {
 
-  private useGraphQL: boolean = true;
+  private useGraphQL: boolean = false;
+  private categoryGraphQL: boolean = true;
 
   constructor() { }
 
-  setUseGraphQL(useGraphQL: boolean) {
+  setUserGraphQL(useGraphQL: boolean) {
     this.useGraphQL = useGraphQL;
   }
 
-  getUseGraphQL(): boolean {
+  getUserGraphQL(): boolean {
     return this.useGraphQL;
+  }
+
+  setCategoryGraphQL(categoryGraphQL: boolean) {
+    this.categoryGraphQL = categoryGraphQL;
+  }
+
+  getCategoryGraphQL(): boolean {
+    return this.categoryGraphQL;
   }
 }

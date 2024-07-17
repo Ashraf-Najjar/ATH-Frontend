@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { CategoryService } from '../../services/category.service';
+import { ActivatedRoute, Data, Router } from '@angular/router';
+import { CategoryRestService } from '../../services/category-rest.service';
+import { ICategoryService } from '../../interfaces/category-service.interface';
+import { CategoryFactoryService } from '../../services/category-factory.service';
+import { Subject, takeUntil } from 'rxjs';
+import { ICategory } from '../../interfaces/category.interface';
 
 @Component({
   selector: 'app-category-form',
@@ -13,14 +17,47 @@ export class CategoryFormComponent implements OnInit {
   formGroup!: FormGroup;
   isLoading = false;
 
+  categoryId!: string;
+  categoryResponse!: ICategory;
+
+  unSubscribeAll = new Subject<void>();
+
+  categoryService: ICategoryService = this.categoryFactoryService.getCategoryService();
+
+
   constructor(
-    private categoryService: CategoryService,
-    private router: Router
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    public categoryFactoryService: CategoryFactoryService,
   ){}
 
   ngOnInit(): void {
     this.initForm();
+    this.categoryId = this.activeRoute.snapshot.params['id'];
+    if(this.categoryId){
+      this.patchCategoryData();
+    }
   }
+
+
+  patchCategoryData(){
+    this.activeRoute.data.pipe(takeUntil(this.unSubscribeAll)).subscribe({
+      next: (res: { [key: string]: Data }) => {
+        if (!res) {
+          this.handleNavigate();
+          return;
+        }
+        this.categoryResponse = <ICategory>res?.['category'];
+        this.formGroup.patchValue(this.categoryResponse);
+
+      }
+    })
+  }
+
+  handleNavigate(){
+    this.router.navigate(["/category/list"]);
+  }
+
   initForm(){
     this.formGroup = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -38,5 +75,10 @@ export class CategoryFormComponent implements OnInit {
       this.categoryService.createCategory(this.formGroup.value).subscribe((res: any) => {
         this.router.navigate(["/category/list"]);
       });
+  }
+
+  ngOnDestroy() {
+    this.unSubscribeAll.next();
+    this.unSubscribeAll.complete();
   }
 }

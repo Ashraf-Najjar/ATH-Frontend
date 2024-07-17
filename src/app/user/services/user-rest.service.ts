@@ -13,10 +13,10 @@ const BASE_URL = environment.apiUrl;
 export class UserRestService implements IUserService  {
   constructor(private http: HttpClient) { }
 
-  getUsers(skip: number, limit: number): Observable<IUser[]> {
+  getUsers(skip: number, limit: number): Observable<{ users: IUser[] }> {
     const queryParams = `?skip=${skip}&limit=${limit}`;
     const url = `${BASE_URL}user/list` + queryParams;
-    return this.http.get<IUser[]>(url);
+    return this.http.get<{ users: IUser[] }>(url);
   }
 
   getUser(id: string): Observable<IUser> {
@@ -26,22 +26,22 @@ export class UserRestService implements IUserService  {
   }
 
   createUser(user: IUser) {
-    return this.http.post<{ message: string; ViolationId: string }>(BASE_URL + "user/create", { user })
+    return this.http.post<{ message: string}>(BASE_URL + "user/create", { user })
   }
 
   updateUser(id: string, user: IUser) {
-    return this.http.post<{ message: string; ViolationId: string }>(BASE_URL + "user/update", { id,user })
+    return this.http.post<{ message: string}>(BASE_URL + "user/update", { id,user })
   }
 
   deleteUser(id: string) {
-    return this.http.post<{ message: string; ViolationId: string }>(BASE_URL + "user/delete", { id })
+    return this.http.post<{ message: string}>(BASE_URL + "user/delete", { id });
   }
 
   enableUser(id: string) {
-    return this.http.post<{ message: string; ViolationId: string }>(BASE_URL + "user/enable", { id })
+    return this.http.post<{ message: string}>(BASE_URL + "user/enable", { id });
   }
 
   disableUser(id: string) {
-    return this.http.post<{ message: string; ViolationId: string }>(BASE_URL + "user/disable", { id })
+    return this.http.post<{ message: string}>(BASE_URL + "user/disable", { id });
   }
 }

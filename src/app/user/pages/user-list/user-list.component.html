@@ -2,6 +2,7 @@
     <div class="page-title-container">
         <app-page-title title="Users List"></app-page-title>
     </div>
+    <app-filter [config]="filters"></app-filter>
     <div class="testt mat-elevation-z8">
         <div class="table-container">
             <app-table [config]="config" [data]="dataSource"></app-table>

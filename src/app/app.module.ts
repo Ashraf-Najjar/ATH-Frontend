@@ -12,7 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from './layout/layout.module';
-import { GraphQLModule } from './graphql.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { GraphQLModule } from './graphql.module';
     MatToolbarModule,
     MatButtonModule,
     HttpClientModule,
-    GraphQLModule
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

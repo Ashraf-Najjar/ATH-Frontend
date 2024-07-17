@@ -45,7 +45,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
           this.handleNavigate();
           return;
         }
-        this.userResponse = res?.['user']?.['user'];
+        this.userResponse = <IUser>res?.['user'];
         this.formGroup.patchValue(this.userResponse);
 
       }
@@ -80,13 +80,6 @@ export class UserFormComponent implements OnInit, OnDestroy {
       })
     }
 
-    // if (this.mode === "create") {
-    //   this.violationApiService.addViolation(this.formGroup.value);
-    // } else {
-    //   this.violationApiService.updateViolation(this.violation._id, this.formGroup.value);
-    // }
-    // this.formGroup.reset();
-    // }
   }
 
   handleNavigate(){

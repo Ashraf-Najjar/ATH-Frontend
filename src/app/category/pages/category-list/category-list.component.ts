@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { CategoryService } from '../../services/category.service';
+import { CategoryRestService } from '../../services/category-rest.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
-import { tableConfig } from '../../config/table.config';
+import { tableConfig } from '../../config/category-table.config';
+import { CategoryFactoryService } from '../../services/category-factory.service';
+import { ICategoryService } from '../../interfaces/category-service.interface';
+import { ITableConfig } from 'src/app/shared/table/table.component';
 
 @Component({
   selector: 'app-category-list',
@@ -12,7 +15,7 @@ import { tableConfig } from '../../config/table.config';
 export class CategoryListComponent {
   dataSource: any = [];
   subscriber = new Subject();
-  config = tableConfig;
+  config: ITableConfig = tableConfig(this);
 
   // Pagination Config
   rpp = 20;
@@ -22,8 +25,10 @@ export class CategoryListComponent {
 
   isLoading = false;
 
+  categoryService: ICategoryService = this.categoryFactoryService.getCategoryService();
+
   constructor(
-    private categoryService: CategoryService,
+    public categoryFactoryService: CategoryFactoryService,
     public router: Router
   ) { }
 

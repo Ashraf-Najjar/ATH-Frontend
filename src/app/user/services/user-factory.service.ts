@@ -16,6 +16,6 @@ export class UserFactoryService {
   ) { }
 
   getUserService(): IUserService {
-    return this.configService.getUseGraphQL() ? this.userGraphQLService : this.userRestService;
+    return this.configService.getUserGraphQL() ? <UserGraphQLService>this.userGraphQLService : <UserRestService>this.userRestService;
   }
 }

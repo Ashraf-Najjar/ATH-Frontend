@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoryFormComponent } from './pages/category-form/category-form.component';
+import { CategoryResolver } from './resolvers/category.resolver';
 
 
 
@@ -32,6 +33,9 @@ import { CategoryFormComponent } from './pages/category-form/category-form.compo
     MatButtonModule,
     MatCardModule,
     SharedModule
+  ],
+  providers: [
+    CategoryResolver
   ]
 })
 export class CategoryModule { }
