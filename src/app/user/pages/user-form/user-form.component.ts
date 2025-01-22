@@ -63,23 +63,26 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
 
-  create() {
+  submitForm() {
     if (this.formGroup.invalid) {
       return;
     }
     this.isLoading = true;
-    if(!this.userId){
-      this.userService.createUser(this.formGroup.value).subscribe((res: any) => {
-        console.log(res)
-        this.handleNavigate();
-      })
-    }else{
-      this.userService.updateUser(this.userId, this.formGroup.value).subscribe((res: any) => {
-        console.log(res)
-        this.handleNavigate();
-      })
-    }
+    const formData = this.formGroup.value;
+    const request = this.userId
+    ? this.userService.updateUser(this.userId, formData)
+    : this.userService.createUser(formData);
 
+    request.subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.handleNavigate();
+      },
+      error: () => {
+        console.error('An error occurred:');
+        this.isLoading = false; // Stop loading if there's an error
+      }
+    });
   }
 
   handleNavigate(){

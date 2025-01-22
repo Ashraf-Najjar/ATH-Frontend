@@ -1,5 +1,5 @@
 <div class="form-container">
-  <form [formGroup]="formGroup" (ngSubmit)="create()">
+  <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
     <mat-card>
       <mat-card-header>
         <mat-card-title>{{userId ? 'Update User' : 'Create User'}}</mat-card-title>

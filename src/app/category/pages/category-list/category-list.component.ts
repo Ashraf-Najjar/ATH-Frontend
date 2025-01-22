@@ -6,6 +6,8 @@ import { tableConfig } from '../../config/category-table.config';
 import { CategoryFactoryService } from '../../services/category-factory.service';
 import { ICategoryService } from '../../interfaces/category-service.interface';
 import { ITableConfig } from 'src/app/shared/table/table.component';
+import { IFilter, IFilterOutput } from 'src/app/shared/filter/filter.component';
+import { filterConfig } from '../../config/category-filter.config';
 
 @Component({
   selector: 'app-category-list',
@@ -16,6 +18,8 @@ export class CategoryListComponent {
   dataSource: any = [];
   subscriber = new Subject();
   config: ITableConfig = tableConfig(this);
+  filters: IFilter[] = filterConfig(this);
+  appliedFilters: IFilterOutput[] = [];
 
   // Pagination Config
   rpp = 20;
@@ -45,12 +49,18 @@ export class CategoryListComponent {
 
   load() {
     this.isLoading = true;
-    this.categoryService.getCategories(this.page, this.rpp).pipe(takeUntil(this.subscriber)).subscribe((result: any) => {
+    this.categoryService.getCategories(this.page, this.rpp, this.appliedFilters).pipe(takeUntil(this.subscriber)).subscribe((result: any) => {
       this.dataSource = result.categories
       this.dataSize = result.count;
       this.isLoading = false;
     })
   }
+  
+  filtersChanged(filters: IFilterOutput[]){
+    this.appliedFilters = filters;
+    this.load();
+  }
+
 
   navigateToCreate() {
     this.router.navigate(['category/create'])

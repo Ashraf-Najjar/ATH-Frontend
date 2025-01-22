@@ -1,5 +1,5 @@
 <div class="form-container">
-    <form [formGroup]="formGroup" (ngSubmit)="create()">
+    <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
       <mat-card>
         <mat-card-header>
           <mat-card-title>Create Category</mat-card-title>
@@ -28,7 +28,7 @@
           </div>
         </mat-card-content>
         <mat-card-actions >
-          <button mat-button class="btn-save" type="submit">Create</button>
+          <button mat-button class="btn-save" type="submit">{{categoryId ? 'Update' : 'Create'}}</button>
         </mat-card-actions>
       </mat-card>
     </form>

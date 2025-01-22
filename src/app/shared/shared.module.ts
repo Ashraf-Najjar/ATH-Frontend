@@ -12,13 +12,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatDialogModule} from '@angular/material/dialog';
+import { MatMenuModule} from '@angular/material/menu';
+import { SkeletonComponent } from './skeleton/skeleton.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [
     TableComponent,
     PageTitleComponent,
-    FilterComponent
+    FilterComponent,
+    SkeletonComponent
   ],
   imports: [
     CommonModule,
@@ -30,12 +34,16 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatMenuModule,
+    NgxSkeletonLoaderModule,
+    MatDialogModule
   ],
   exports:[
     TableComponent,
     PageTitleComponent,
-    FilterComponent
+    FilterComponent,
+    SkeletonComponent
   ]
 })
 export class SharedModule { }

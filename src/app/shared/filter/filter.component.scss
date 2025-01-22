@@ -1,0 +1,23 @@
+.filters{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+::ng-deep.mat-mdc-menu-panel {
+    min-width: unset !important; /* set your desired width */
+    max-width: unset !important; /* set your desired width */
+    min-height: unset !important; /* set your desired height */
+    max-height: unset !important; /* set your desired height */
+    background-color: #F4F4F2 !important;
+  }
+
+  
+mat-card {
+    box-shadow: none !important;
+}
+
+.filter-wrapper mat-icon {
+    font-size: 2rem;
+    height: fit-content;
+    width: fit-content;
+}

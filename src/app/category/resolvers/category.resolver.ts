@@ -19,7 +19,6 @@ export class CategoryResolver implements Resolve<any> {
       const id = route.params['id'];
       this.categoryService.getCategory(id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         async (result: any) => {
-          console.log('result ', result)
           resolve(result.category ?? result)
         }
       );

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IUser } from '../interfaces/user.interface';
 import { environment } from 'src/environments/environment';
 import { IUserService } from '../interfaces/user.service.interface';
+import { IFilterOutput } from 'src/app/shared/filter/filter.component';
 
 const BASE_URL = environment.apiUrl;
 
@@ -13,10 +14,14 @@ const BASE_URL = environment.apiUrl;
 export class UserRestService implements IUserService  {
   constructor(private http: HttpClient) { }
 
-  getUsers(skip: number, limit: number): Observable<{ users: IUser[] }> {
-    const queryParams = `?skip=${skip}&limit=${limit}`;
-    const url = `${BASE_URL}user/list` + queryParams;
-    return this.http.get<{ users: IUser[] }>(url);
+  getUsers(skip: number, limit: number, filters: IFilterOutput[]): Observable<{ users: IUser[] }> {
+    const params = {
+      skip, limit, filters: JSON.stringify(filters)
+    }
+    const url = `${BASE_URL}user/list`;
+    return this.http.get<{ users: IUser[] }>(url, {
+      params: params
+    });
   }
 
   getUser(id: string): Observable<IUser> {

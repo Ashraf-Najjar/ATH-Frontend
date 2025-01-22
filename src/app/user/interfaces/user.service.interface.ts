@@ -1,8 +1,9 @@
 import { Observable } from "rxjs";
 import { IUser } from "./user.interface";
+import { IFilterOutput } from "src/app/shared/filter/filter.component";
 
 export interface IUserService {
-    getUsers(skip: number, limit: number): Observable<{ users: IUser[] }>;
+    getUsers(skip: number, limit: number, filters: IFilterOutput[], dataShape?:any): Observable<{ users: IUser[] }>;
 
     getUser(id: string): Observable<IUser>;
 

@@ -1,5 +1,7 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { removeEmptyValues, transformObject } from 'src/app/core/helpers/object.helper';
 
 export interface IFilter {
   key: string,
@@ -12,6 +14,11 @@ export interface IFilter {
   validation?: Validators,
   errorMsg?: string
 }
+
+export interface IFilterOutput {
+    field: string;
+    value: any;
+}
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
@@ -21,7 +28,11 @@ export interface IFilter {
 export class FilterComponent implements OnInit, OnChanges {
 
   @Input() config!: IFilter[];
+  @Input() title!: string;
+  @Output() filtersChanged = new EventEmitter<IFilterOutput[]>();
 
+  @ViewChild('menuTrigger') menuTrigger!: MatMenuTrigger;
+  
   formGroup: FormGroup = new FormGroup({});
   loading = false;
 
@@ -33,6 +44,7 @@ export class FilterComponent implements OnInit, OnChanges {
   }
   
   ngOnInit(): void {}
+
 
   initForm() {
     this.formGroup = new FormGroup({})
@@ -53,4 +65,19 @@ export class FilterComponent implements OnInit, OnChanges {
 
     this.loading = false;
   }
+
+  applyFilter(reset = false){
+    if(reset){
+      this.formGroup.reset();
+    }
+    this.menuTrigger.closeMenu()
+  }
+
+  menuClosed(){
+    let formGroupValue = this.formGroup.value;
+    formGroupValue = transformObject(removeEmptyValues(formGroupValue));
+    this.filtersChanged.emit(formGroupValue);
+  }
+
+  menuOpened(){}
 }

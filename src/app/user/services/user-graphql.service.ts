@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import { IUser } from '../interfaces/user.interface';
 import { Apollo, gql } from 'apollo-angular';
 import USER_DATA_SHAPE from "../data-shape/user-data-shape"
+import { IFilterOutput } from 'src/app/shared/filter/filter.component';
 
 const CREATE_USER_MUTATION = gql`
   mutation CreateUser($user: CreateUserInput) {
@@ -56,8 +57,8 @@ const DISABLE_USER_MUTATION = gql`
 export class UserGraphQLService implements IUserService {
 
   private getUsersQuery = (dataShape: string = USER_DATA_SHAPE) => gql`
-    query {
-      users {
+    query users($skip: Int, $limit: Int, $filters: [FilterInput]) {
+      users (skip: $skip, limit: $limit, filters: $filters) {
         ${dataShape}
       }
     }
@@ -72,8 +73,15 @@ export class UserGraphQLService implements IUserService {
 
   constructor(private apollo: Apollo) { }
 
-  getUsers(skip: number, limit: number, dataShape: string = USER_DATA_SHAPE): Observable<{ users: IUser[] }> {
-    return this.apollo.query<{ users: IUser[] }>({ query: this.getUsersQuery(dataShape) })
+  getUsers(skip: number, limit: number, filters:IFilterOutput[], dataShape: string = USER_DATA_SHAPE): Observable<{ users: IUser[] }> {
+    return this.apollo.query<{ users: IUser[] }>({ 
+      query: this.getUsersQuery(dataShape) ,
+      variables: {
+        skip: skip,
+        limit: limit,
+        filters: filters,
+      }
+    })
       .pipe(map(result => result.data));
   }
 

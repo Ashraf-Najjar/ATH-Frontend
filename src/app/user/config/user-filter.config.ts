@@ -14,6 +14,18 @@ export const filterConfig = (parent: UserListComponent): IFilter[] => <IFilter[]
         type: "text",
         placeholder: "Enter email..."
     },
+    {
+        key: 'phone',
+        label: 'Phone',
+        type: "text",
+        placeholder: "Enter phone..."
+    },
+    {
+        key: 'createdBy',
+        label: 'Created By',
+        type: "text",
+        placeholder: "Enter user name..."
+    },
     // {
     //     key: 'name',
     //     label: 'Name',

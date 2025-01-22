@@ -6,8 +6,11 @@
 }
 
 .page-title-container {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
   margin-bottom: 20px;
-  border-bottom: 1px solid $primary-color;
+  border-bottom: 1px solid #495464;
 }
 
 .table-container {
@@ -55,14 +58,21 @@
 }
 
 mat-card-actions {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  align: right;
+  flex-direction: row-reverse !important;
+  padding: 24px 14px !important;
+  gap: 16px !important;
+  
 }
 
 .btn-save {
+  // background-color: $primary-color !important;
+  // color: $primary-white-color !important;
   background-color: $primary-color !important;
   color: $primary-white-color !important;
+  padding: 8px 24px !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer;
 }
 
 
@@ -72,3 +82,14 @@ mat-card-actions {
 mat-icon{
   cursor: pointer;
 }
+
+mat-spinner{
+  position: absolute !important;
+  top: 40% !important;
+  right: 50% !important;
+}
+
+mat-spinner circle {
+  stroke: $primary-color;
+}
+

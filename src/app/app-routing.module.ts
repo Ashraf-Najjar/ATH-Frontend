@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserModule } from './user/user.module';
 import { CategoryModule } from './category/category.module';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
+import { SubCategoryModule } from './sub-category/sub-category.module';
+import { ProductModule } from './product/product.module';
 
 const routes: Routes = [
   {
@@ -12,6 +14,8 @@ const routes: Routes = [
     children: [
       { path: "user", loadChildren: () => UserModule },
       { path: "category", loadChildren: () => CategoryModule },
+      { path: "sub-category", loadChildren: () => SubCategoryModule },
+      { path: "product", loadChildren: () => ProductModule },
     ]
   }
   // { path: '', pathMatch: 'full', redirectTo: 'dashboard' },

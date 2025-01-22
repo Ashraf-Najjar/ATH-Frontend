@@ -1,8 +1,9 @@
 import { Observable } from "rxjs";
 import { ICategory } from "./category.interface";
+import { IFilterOutput } from "src/app/shared/filter/filter.component";
 
 export interface ICategoryService {
-    getCategories(skip: number, limit: number): Observable<{ categories: ICategory[] }>;
+    getCategories(skip: number, limit: number, filters?: IFilterOutput[], dataShape?:any): Observable<{ categories: ICategory[] }>;
 
     getCategory(id: string): Observable<ICategory>;
 

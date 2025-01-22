@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ICategory } from '../interfaces/category.interface';
 import { ICategoryService } from '../interfaces/category-service.interface';
+import { IFilterOutput } from 'src/app/shared/filter/filter.component';
 
 
 const BASE_URL = environment.apiUrl;
@@ -15,10 +16,14 @@ export class CategoryRestService implements ICategoryService {
 
   constructor(private http: HttpClient) {}
 
-  getCategories(skip: number, limit: number): Observable<{ categories: ICategory[] }> {
-    const queryParams = `?skip=${skip}&limit=${limit}`;
-    const url = `${BASE_URL}category/list` + queryParams;
-    return this.http.get<{ categories: ICategory[] }>(url);
+  getCategories(skip: number, limit: number, filters: IFilterOutput[] = []): Observable<{ categories: ICategory[] }> {
+    const params = {
+      skip, limit, filters: JSON.stringify(filters)
+    }
+    const url = `${BASE_URL}category/list`;
+    return this.http.get<{ categories: ICategory[] }>(url, {
+      params: params
+    });
   }
 
   getCategory(id: string): Observable<ICategory> {

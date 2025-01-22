@@ -20,7 +20,6 @@ export class UserResolver implements Resolve<any> {
       const id = route.params['id'];
       this.userService.getUser(id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         async (result: any) => {
-          console.log('result ', result)
           resolve(result.user ?? result)
         }
       );

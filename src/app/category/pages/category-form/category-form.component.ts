@@ -67,15 +67,30 @@ export class CategoryFormComponent implements OnInit {
 
   }
 
-  create(){
-      if (this.formGroup.invalid) {
-        return;
+  submitForm(): void {
+    if (this.formGroup.invalid) {
+      return;
+    }
+  
+    this.isLoading = true;
+  
+    const formData = this.formGroup.value;
+    const request = this.categoryId
+      ? this.categoryService.updateCategory(this.categoryId, formData)
+      : this.categoryService.createCategory(formData);
+  
+    request.subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.handleNavigate();
+      },
+      error: () => {
+        console.error('An error occurred:');
+        this.isLoading = false; // Stop loading if there's an error
       }
-      this.isLoading = true;
-      this.categoryService.createCategory(this.formGroup.value).subscribe((res: any) => {
-        this.router.navigate(["/category/list"]);
-      });
+    });
   }
+  
 
   ngOnDestroy() {
     this.unSubscribeAll.next();

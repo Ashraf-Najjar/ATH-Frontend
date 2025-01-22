@@ -4,6 +4,7 @@ import { ICategory } from '../interfaces/category.interface';
 import { map, Observable } from 'rxjs';
 import CATEGORY_DATA_SHAPE from "../data-shape/category-data-shape";
 import { ICategoryService } from '../interfaces/category-service.interface';
+import { IFilterOutput } from 'src/app/shared/filter/filter.component';
 
 const CREATE_CATEGORY_MUTATION = gql`
   mutation CreateCategory($category: CreateCategoryInput) {
@@ -57,8 +58,8 @@ export class CategoryGraphQLService implements ICategoryService {
 
 
   private getCategoriesQuery = (dataShape: string = CATEGORY_DATA_SHAPE) => gql`
-    query {
-      categories {
+    query categories($skip: Int, $limit: Int, $filters: [FilterInput]){
+      categories (skip: $skip, limit: $limit, filters: $filters) {
         ${dataShape}
       }
     }
@@ -73,8 +74,15 @@ export class CategoryGraphQLService implements ICategoryService {
 
   constructor(private apollo: Apollo) { }
 
-  getCategories(skip: number, limit: number, dataShape: string = CATEGORY_DATA_SHAPE): Observable<{ categories: ICategory[] }> {
-    return this.apollo.query<{ categories: ICategory[] }>({ query: this.getCategoriesQuery(dataShape) })
+  getCategories(skip: number, limit: number, filters:IFilterOutput[] = [], dataShape: string = CATEGORY_DATA_SHAPE): Observable<{ categories: ICategory[] }> {
+    return this.apollo.query<{ categories: ICategory[] }>({ 
+      query: this.getCategoriesQuery(dataShape),
+      variables: {
+        skip: skip,
+        limit: limit,
+        filters: filters,
+      }
+    })
       .pipe(map(result => result.data));
   }
 

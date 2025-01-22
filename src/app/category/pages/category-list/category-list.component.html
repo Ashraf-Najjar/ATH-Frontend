@@ -1,17 +1,30 @@
 <div class="list-container">
     <div class="page-title-container">
         <app-page-title title="Category List"></app-page-title>
+        <app-filter [config]="filters" title="Users Filter" (filtersChanged)="filtersChanged($event)"></app-filter>
     </div>
-    <div class="testt mat-elevation-z8">
+    <div class="mat-elevation-z8" *ngIf="!isLoading else skeleton">
 
         <div class="table-container">
             <app-table [config]="config" [data]="dataSource"></app-table>
         </div>
         <div class="footer-container">
-            <mat-paginator #paginator [length]="dataSize" [pageSize]="rpp" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)" *ngIf="dataSource.length > 0"></mat-paginator>
+            <mat-paginator 
+                #paginator 
+                [length]="dataSize" 
+                [pageSize]="rpp" 
+                [pageSizeOptions]="pageSizeOptions" 
+                [pageIndex]="page" 
+                [showFirstLastButtons]="true"
+                (page)="onChangedPage($event)"
+            ></mat-paginator>
             <button mat-mini-fab class="create-btn-icon" (click)="navigateToCreate()"  aria-label="Example icon button with a menu icon">
                 <mat-icon>add</mat-icon>
             </button>
         </div>
     </div>
+    <ng-template #skeleton>
+        <app-skeleton></app-skeleton>
+    </ng-template>
 </div>
+<mat-spinner [color]="'#BBBFCA'" *ngIf="isLoading"></mat-spinner>

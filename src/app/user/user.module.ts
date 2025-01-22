@@ -9,11 +9,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UserResolver } from './reolvers/user.resolver';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -29,10 +30,11 @@ import { UserResolver } from './reolvers/user.resolver';
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
-    MatPaginatorModule,
     MatButtonModule,
     MatCardModule,
     MatTooltipModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
     SharedModule
   ],
   providers: [

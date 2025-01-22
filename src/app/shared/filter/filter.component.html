@@ -1,35 +1,57 @@
-<div *ngIf="config?.length && !loading" class="filter-container">
-    <form [formGroup]="formGroup">
-        <mat-card>
-            <mat-card-content>
-                <div *ngFor="let item of config; let index='index'">
-                    <ng-container [ngSwitch]="item.type">
-                        <div class="row" *ngSwitchCase="'dropdown'">
-                            <mat-form-field appearance="fill">
-                                <mat-label>{{item.label}}</mat-label>
-                                <mat-select [formControlName]="item.key">
-                                    <mat-option *ngFor="let option of item.options" [value]="option._id">
-                                        {{option.firstName}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-icon matSuffix>{{item?.icon}}</mat-icon>
-                                <mat-error>{{item?.errorMsg}}</mat-error>
-                              </mat-form-field>
+<!-- <button mat-button [matMenuTriggerFor]="menu" #menuTrigger>Menu</button> -->
+ <div class="filter-wrapper">
+     <mat-icon 
+        [matMenuTriggerFor]="menu" 
+        #menuTrigger="matMenuTrigger"
+        (menuClosed)="menuClosed()"
+        (menuOpened)="menuOpened()"
+    >
+        filter_list
+    </mat-icon>
+ </div>
+<mat-menu #menu="matMenu" xPosition="after">
+    <div *ngIf="config?.length && !loading" class="filter-container" (click) = "$event.stopPropagation()">
+        <form [formGroup]="formGroup" (ngSubmit)="applyFilter()">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>{{title}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="filters">
+                        <div class="item" *ngFor="let item of config; let index='index'">
+                            <ng-container [ngSwitch]="item.type">
+                                <div  *ngSwitchCase="'dropdown'">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>{{item.label}}</mat-label>
+                                        <mat-select [formControlName]="item.key">
+                                            <mat-option *ngFor="let option of item.options" [value]="option._id">
+                                                {{option.firstName}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix>{{item?.icon}}</mat-icon>
+                                        <mat-error>{{item?.errorMsg}}</mat-error>
+                                      </mat-form-field>
+                                </div>
+                            </ng-container>
+                            <ng-container [ngSwitch]="item.type">
+                                <div  *ngSwitchCase="'text'">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>{{item.label}}</mat-label>
+                                        <input matInput type="text" [placeholder]="item.label" [formControlName]="item.key">
+                                        <mat-icon matSuffix>{{item?.icon}}</mat-icon>
+                                        <mat-error>{{item?.errorMsg}}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </ng-container>
                         </div>
-                    </ng-container>
-                    <ng-container [ngSwitch]="item.type">
-                        <div class="row" *ngSwitchCase="'text'">
-                            <mat-form-field appearance="fill">
-                                <mat-label>{{item.label}}</mat-label>
-                                <input matInput type="text" [placeholder]="item.label" [formControlName]="item.key">
-                                <mat-icon matSuffix>{{item?.icon}}</mat-icon>
-                                <mat-error>{{item?.errorMsg}}</mat-error>
-                            </mat-form-field>
-                        </div>
-                    </ng-container>
-                </div>
-            </mat-card-content> 
-        </mat-card>
-    </form>
-
-</div>
+                    </div>
+                </mat-card-content> 
+                <mat-card-actions >
+                    <button mat-button class="btn-save" type="submit">Submit</button>
+                    <button mat-button class="btn-save" type="button" (click)="applyFilter(true)">Reset</button>
+                  </mat-card-actions>
+            </mat-card>
+        </form>
+    
+    </div>
+</mat-menu>

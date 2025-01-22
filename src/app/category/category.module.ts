@@ -13,6 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoryFormComponent } from './pages/category-form/category-form.component';
 import { CategoryResolver } from './resolvers/category.resolver';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -32,6 +34,8 @@ import { CategoryResolver } from './resolvers/category.resolver';
     MatPaginatorModule,
     MatButtonModule,
     MatCardModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule,
     SharedModule
   ],
   providers: [

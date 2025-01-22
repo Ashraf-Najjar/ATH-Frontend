@@ -33,14 +33,14 @@ export class CustomSidenavComponent {
       route: 'category/list'
     },
     {
-      icon: 'analytics',
-      label: 'Analytics',
-      route: 'analytics'
+      icon: 'category_search',
+      label: 'Sub category',
+      route: 'sub-category/list'
     },
     {
-      icon: 'comment',
-      label: 'Comments',
-      route: 'comments'
+      icon: 'inventory',
+      label: 'Products',
+      route: 'product/list'
     }
   ]);
 }
