@@ -66,7 +66,6 @@ export class AuthService {
     }
     autoAuthUser() {
         const authInformation = this.getAuthData();
-        console.log({ authInformation })
         this.setUser(authInformation?.user);
         this.setToken(authInformation?.token);
     }

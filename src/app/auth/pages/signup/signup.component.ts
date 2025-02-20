@@ -25,7 +25,6 @@ export class SignupComponent {
   submit() {
     this.authService.signup(this.form.value).subscribe({
       next: (res) => {
-        console.log("resss ", res)
         if(!res.success) return;
         this.router.navigate(["/"])
       },

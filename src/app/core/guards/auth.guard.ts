@@ -18,7 +18,6 @@ export const authGuard: CanActivateFn = async (route, state) => {
     const user = authService.getUser();
     const router = inject(Router);
     const allowedTypes = extractDataAsArray(route.data, "allowedTypes");
-    console.log('allowedTypes ', allowedTypes)
     if(allowedTypes?.includes(user?.role?.toUpperCase() ?? "")) return true;
     return router.navigate(['/auth/login']);
 }

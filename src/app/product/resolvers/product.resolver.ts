@@ -19,7 +19,6 @@ export class ProductResolver implements Resolve<any> {
       const id = route.params['id'];
       this.productService.getProduct(id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         async (result: any) => {
-          console.log('result ', result)
           resolve(result.product ?? result)
         }
       );

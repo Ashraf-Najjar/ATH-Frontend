@@ -62,8 +62,6 @@ export class CustomSidenavComponent {
   user!: IUser | undefined;
   constructor(private authService: AuthService){
     this.user = this.authService.getUser();
-
-    console.log("userssss ", this.user)
   }
 
 // Filter menu items based on user role

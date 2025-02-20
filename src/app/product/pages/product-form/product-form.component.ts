@@ -102,11 +102,6 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     })
   }
 
-  btnClicked(){
-    console.log(this.formGroup.value)
-  }
-
-
   submitForm() {
     if (this.formGroup.invalid) {
       return;
