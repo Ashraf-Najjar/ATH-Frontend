@@ -1,4 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
@@ -10,11 +11,14 @@ export class SidenavComponent {
   collapsed = signal(false);
   sidenavWidth = computed(() => this.collapsed() ? "65px" : "250px")
 
-  constructor(private authService: AuthService){}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ){}
 
 
   viewProfile(){
-    this.authService.logout();
+    this.router.navigate(["/user/view", this.authService.getUser()?._id]);
   }
 
   logout(){

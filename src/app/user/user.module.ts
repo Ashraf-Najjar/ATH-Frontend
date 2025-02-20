@@ -15,12 +15,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { UserResolver } from './reolvers/user.resolver';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { UserDetailsComponent } from './pages/user-details/user-details.component';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
     UserListComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +38,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatTooltipModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatDividerModule,
+    MatGridListModule,
     SharedModule
   ],
   providers: [

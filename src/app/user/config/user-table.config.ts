@@ -27,6 +27,13 @@ export const tableConfig = (parent: UserListComponent) : ITableConfig =>
     ],
     actions: [
       {
+        key: 'view',
+        icon: 'visibility',
+        label: 'View',
+        handler: (user: IUser) => parent.router.navigate(['user/view/',user._id]),
+        role: [EUserType.User]
+      },
+      {
         key: 'update',
         icon: 'edit',
         label: 'Update',

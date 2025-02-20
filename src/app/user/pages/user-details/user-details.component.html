@@ -1,0 +1,58 @@
+<mat-card class="profile-card">
+    <mat-card-header>
+        <div class="profile-header">
+          <div class="profile-image">
+            <!-- <img [src]="user.image || 'assets/img.jpg'" alt="User Image" /> -->
+            <img [src]="'assets/img.jpg'" alt="User Image" />
+          </div>
+          <div class="profile-info">
+            <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+            <span class="role">{{ user.role | titlecase }}</span>
+          </div>
+        </div>
+      </mat-card-header>
+  
+    <mat-card-content>
+      <mat-divider></mat-divider>
+  
+      <div class="user-info">
+        <mat-grid-list cols="2" rowHeight="2:1">
+          <mat-grid-tile>
+            <mat-icon>email</mat-icon> {{ user.email }}
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-icon>phone</mat-icon> {{ user.phone }}
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-icon>location_on</mat-icon>
+            <!-- {{ user.address.Area }}, {{ user.address.Region }}, {{ user.address.country }} -->
+            <!-- {{ "Syria" }}, {{ "Latakia" }}, {{ "AL-Zera'a" }} -->
+            Syria, Latakia, AL-Zera'a
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-icon>event</mat-icon> Joined: {{ user.createdAt | date:'mediumDate' }}
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+  
+      <mat-divider></mat-divider>
+  
+      <div class="status-section">
+        <span class="status-label">Status:</span>
+        <span class="status-badge" [ngClass]="{'active': user.enabled, 'inactive': !user.enabled}">
+          {{ user.enabled ? 'Active' : 'Inactive' }}
+        </span>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button mat-button color="primary" (click)="editProfile()">
+          <mat-icon>edit</mat-icon> Edit Profile
+        </button>
+        <button mat-button [color]="user.enabled ? 'warn' : 'accent'" (click)="user.enabled ? disableUser() : enableUser()">
+          <mat-icon>{{ user.enabled ? 'block' : 'check_circle' }}</mat-icon>
+          {{ user.enabled ? 'Deactivate' : 'Activate' }}
+        </button>
+      </mat-card-actions>
+  </mat-card>
+  
