@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
 import { SubCategoryModule } from './sub-category/sub-category.module';
@@ -17,7 +18,8 @@ const routes: Routes = [
       { path: "sub-category", loadChildren: () => SubCategoryModule },
       { path: "product", loadChildren: () => ProductModule },
     ]
-  }
+  },
+  { path: "auth", loadChildren: () => AuthModule }
   // { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   // { path: 'dashboard', pathMatch: 'full', redirectTo: 'dashboard' },
 ];

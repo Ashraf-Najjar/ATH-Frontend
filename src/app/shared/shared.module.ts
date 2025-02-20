@@ -16,13 +16,17 @@ import { MatDialogModule} from '@angular/material/dialog';
 import { MatMenuModule} from '@angular/material/menu';
 import { SkeletonComponent } from './skeleton/skeleton.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import {MatListModule} from '@angular/material/list';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
     TableComponent,
     PageTitleComponent,
     FilterComponent,
-    SkeletonComponent
+    SkeletonComponent,
+    FileUploadComponent
   ],
   imports: [
     CommonModule,
@@ -37,13 +41,17 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     MatInputModule,
     MatMenuModule,
     NgxSkeletonLoaderModule,
-    MatDialogModule
+    MatDialogModule,
+    MatListModule,
+    MatButtonModule,
+    MatProgressBarModule
   ],
   exports:[
     TableComponent,
     PageTitleComponent,
     FilterComponent,
-    SkeletonComponent
+    SkeletonComponent,
+    FileUploadComponent
   ]
 })
 export class SharedModule { }

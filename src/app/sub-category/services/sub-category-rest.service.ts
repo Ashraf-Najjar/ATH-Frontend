@@ -16,7 +16,7 @@ export class SubCategoryRestService implements ISubCategoryService {
 
   constructor(private http: HttpClient) {}
 
-  getSubCategories(skip: number, limit: number, filters: IFilterOutput[]): Observable<{ subCategories: ISubCategory[] }> {
+  getSubCategories(skip: number, limit: number, filters: IFilterOutput[] = []): Observable<{ subCategories: ISubCategory[] }> {
     const params = {
       skip, limit, filters: JSON.stringify(filters)
     }

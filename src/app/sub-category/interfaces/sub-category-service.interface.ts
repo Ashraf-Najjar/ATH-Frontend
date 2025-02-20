@@ -3,7 +3,7 @@ import { ISubCategory } from "./sub-category.interface";
 import { IFilterOutput } from "src/app/shared/filter/filter.component";
 
 export interface ISubCategoryService {
-    getSubCategories(skip: number, limit: number, filters: IFilterOutput[], dataShape?:any): Observable<{ subCategories: ISubCategory[] }>;
+    getSubCategories(skip: number, limit: number, filters?: IFilterOutput[], dataShape?:any): Observable<{ subCategories: ISubCategory[] }>;
 
     getSubCategory(id: string): Observable<ISubCategory>;
 

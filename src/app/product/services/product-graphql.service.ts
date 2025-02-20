@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { IProductService } from '../interfaces/product-service.interface';
 import { map, Observable } from 'rxjs';
 import { IProduct } from '../interfaces/product.interface';
 import { Apollo, gql } from 'apollo-angular';
@@ -10,7 +9,7 @@ const CREATE_PRODUCT_MUTATION = gql`
   mutation CreateProduct($product: CreateProductInput) {
     createProduct(product: $product) {
       _id
-      email
+      name
     }
   }
 `;
@@ -19,7 +18,7 @@ const UPDATE_PRODUCT_MUTATION = gql`
   mutation updateProduct($id: ID, $product: UpdateProductInput) {
     updateProduct(id: $id, product: $product) {
       _id
-      email
+      name
     }
   }
 `;
@@ -28,7 +27,7 @@ const DELETE_PRODUCT_MUTATION = gql`
   mutation deleteProduct($id: ID) {
     deleteProduct(id: $id) {
       _id
-      email
+      name
     }
   }
 `;
@@ -37,7 +36,7 @@ const ENABLE_PRODUCT_MUTATION = gql`
   mutation enableProduct($id: ID) {
     enableProduct(id: $id) {
       _id
-      email
+      name
     }
   }
 `;
@@ -46,7 +45,7 @@ const DISABLE_PRODUCT_MUTATION = gql`
   mutation disableProduct($id: ID) {
     disableProduct(id: $id) {
       _id
-      email
+      name
     }
   }
 `;

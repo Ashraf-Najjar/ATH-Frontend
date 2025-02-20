@@ -6,7 +6,7 @@ import { removeEmptyValues, transformObject } from 'src/app/core/helpers/object.
 export interface IFilter {
   key: string,
   label: string,
-  type: 'text' | 'switch' | 'dropdown',
+  type: 'text' | 'number' | 'switch' | 'dropdown',
   options?: any,
   icon?: string,
   placeholder?: string,

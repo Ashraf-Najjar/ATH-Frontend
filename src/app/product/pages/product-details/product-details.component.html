@@ -1,0 +1,23 @@
+   <div class="product-details">
+    <div class="image-section">
+      <img [src]="'http://localhost:4000/uploads/' + product?.image?.filename" alt="{{ product.name }}">
+    </div>
+    <div class="info-section">
+      <h1>{{ product.name }}</h1>
+      <p class="category">{{ product.category?.name }} - {{ product.subCategory?.name }}</p>
+      <p class="description">{{ product.description }}</p>
+      <p class="price">${{ product.price.toFixed(2) }}</p>
+      <p class="stock" [ngClass]="{'in-stock': product.quantity > 0, 'out-of-stock': product.quantity === 0}">
+        {{ product.quantity > 0 ? 'In Stock' : 'Out of Stock' }}
+      </p>
+      
+      <!-- <div class="rating">
+        <span *ngFor="let star of [1,2,3,4,5]" class="star" [ngClass]="{'filled': star <= product.rating}">★</span>
+        <span class="review-count">({{ product.reviews.length }} reviews)</span>
+      </div> -->
+      
+      <button mat-button color="primary" [disabled]="product.quantity === 0">Add to Cart</button>
+      <button mat-raised-button color="accent" [disabled]="product.quantity === 0">Buy Now</button>
+    </div>
+  </div>
+  

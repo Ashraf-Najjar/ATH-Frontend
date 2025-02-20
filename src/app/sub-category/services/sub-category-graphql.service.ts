@@ -74,7 +74,7 @@ export class SubCategoryGraphQLService implements ISubCategoryService {
 
   constructor(private apollo: Apollo) { }
 
-  getSubCategories(skip: number, limit: number, filters:IFilterOutput[], dataShape: string = CATEGORY_DATA_SHAPE): Observable<{ subCategories: ISubCategory[] }> {
+  getSubCategories(skip: number, limit: number, filters:IFilterOutput[] = [], dataShape: string = CATEGORY_DATA_SHAPE): Observable<{ subCategories: ISubCategory[] }> {
     return this.apollo.query<{ subCategories: ISubCategory[] }>({
       query: this.getSubCategoriesQuery(dataShape),
       variables: {

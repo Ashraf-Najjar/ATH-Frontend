@@ -1,0 +1,83 @@
+<!-- <div class="product-grid">
+    <mat-card *ngFor="let product of products" class="product-card">
+        <img mat-card-image [src]="product.images[0]" alt="{{ product.name }}">
+        <mat-card-content>
+          <h2>{{ product.name }}</h2>
+          <p class="category">{{ product.category }} - {{ product.subcategory }}</p>
+          <p class="description">{{ product.description }}</p>
+          <p class="price">${{ product.price.toFixed(2) }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="primary">View Details</button>
+          <button mat-button color="accent">Add to Cart</button>
+        </mat-card-actions>
+      </mat-card>
+      
+</div> -->
+
+<!-- *********************** -->
+<div class="product-grid">
+    <mat-card *ngFor="let product of products" class="product-card">
+      <img mat-card-image [src]="'http://localhost:4000/uploads/' + product?.image?.filename" alt="{{ product.name }}">
+      <mat-card-content>
+        <h2>{{ product.name }}</h2>
+        <!-- <p class="category">{{ product.category }} - {{ product.subcategory }}</p> -->
+        <p class="category">{{ product.category?.name }} - {{ product.subCategory?.name }}</p>
+        <p class="description">{{ product.description }}</p>
+        <p class="price">${{ product.price.toFixed(2) }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="viewProduct(product._id)">View Details</button>
+        <button mat-button color="accent">Add to Cart</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  
+  <!-- Product View Component -->
+  <!-- <app-product-details *ngIf="selectedProduct" [product]="selectedProduct" (close)="closeProductView()"></app-product-details> -->
+  
+<!-- *************************** -->
+  <!-- <div class="product-list">
+    <mat-card *ngFor="let product of products" class="product-card">
+      <mat-card-header>
+        <mat-card-title>{{ product.name }}</mat-card-title>
+        <mat-card-subtitle>{{ product.category }} > {{ product.subcategory }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="image-container">
+          <img mat-card-image [src]="product.images[0]" alt="{{ product.name }}" />
+        </div>
+        <p class="description">{{ truncateDescription(product.description, 150) }}</p>
+        <div class="price">
+          <strong>Price:</strong> ${{ product.price | number: '1.2-2' }}
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary">View Details</button>
+        <button mat-button color="accent">Add to Cart</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+   -->
+
+
+
+   <!-- <div class="product-list">
+    <mat-card class="product-card" *ngFor="let product of products">
+      <div class="image-container">
+        <img mat-card-image [src]="product.images[0]" alt="{{ product.name }}" />
+      </div>
+      <mat-card-content>
+        <h2 class="product-title">{{ product.name }}</h2>
+        <p class="price">${{ product.price | number: '1.2-2' }}</p>
+        <p class="category">
+          <span>{{ product.category }}</span> > <span>{{ product.subcategory }}</span>
+        </p>
+        <p class="description" [matTooltip]="product.description">
+          {{ product.description | slice: 0:80 }}{{ product.description.length > 80 ? '...' : '' }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+   -->

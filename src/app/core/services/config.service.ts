@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ConfigService {
 
-  private userGraphQL: boolean = true;
+  private userGraphQL: boolean = false;
   private categoryGraphQL: boolean = false;
   private subCategoryGraphQL: boolean = false;
   private productGraphQL: boolean = false;

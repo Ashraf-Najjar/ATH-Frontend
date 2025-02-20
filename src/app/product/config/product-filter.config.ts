@@ -1,12 +1,25 @@
 import { IFilter } from "src/app/shared/filter/filter.component";
 import { ProductListComponent } from "../pages/product-list/product-list.component";
+import { ProductCardListComponent } from "../pages/product-card-list/product-card-list.component";
 
-export const filterConfig = (parent: ProductListComponent): IFilter[] => <IFilter[]>([
+export const filterConfig = (parent: ProductListComponent | ProductCardListComponent): IFilter[] => <IFilter[]>([
     {
         key: 'name',
         label: 'Product Name',
         type: "text",
         placeholder: "Enter product name..."
+    },
+    {
+        key: 'price',
+        label: 'Product Price',
+        type: "number",
+        placeholder: "Enter product price..."
+    },
+    {
+        key: 'quantity',
+        label: 'Product Quantity',
+        type: "number",
+        placeholder: "Enter product quantity..."
     },
     {
         key: 'note',

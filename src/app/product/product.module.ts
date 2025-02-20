@@ -16,11 +16,16 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SharedModule } from '../shared/shared.module';
 import { MatSelectModule } from '@angular/material/select';
+import { ProductCardListComponent } from './pages/product-card-list/product-card-list.component';
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+
 
 @NgModule({
   declarations: [
     ProductListComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductCardListComponent,
+    ProductDetailsComponent
   ],
   imports: [
     CommonModule,

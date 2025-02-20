@@ -24,13 +24,22 @@
           <mat-form-field appearance="fill">
             <mat-label>Enter your email</mat-label>
             <input matInput placeholder="pat@example.com"  formControlName="email" required>
+            <mat-icon matSuffix>mail_outline</mat-icon>
             <mat-error>Email is required, Please insert a valid email</mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Phone number</mat-label>
             <input matInput type="text" placeholder="Phone number" formControlName="phone">
-            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            <mat-icon matSuffix>phone</mat-icon>
             <mat-error>Phone is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="text" placeholder="Password" formControlName="password">
+            <mat-icon matSuffix>lock_outline</mat-icon>
+            <mat-error>Password is required</mat-error>
           </mat-form-field>
         </div>
       </mat-card-content>

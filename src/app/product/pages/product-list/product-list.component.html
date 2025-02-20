@@ -18,7 +18,12 @@
                 [showFirstLastButtons]="true"
                 (page)="onChangedPage($event)" 
             ></mat-paginator>
-            <button matTooltip="Create product" mat-mini-fab class="create-btn-icon" (click)="navigateToCreate()">
+            <button 
+                matTooltip="Create product" 
+                mat-mini-fab class="create-btn-icon" 
+                *ngIf="canCreateProduct()"
+                (click)="navigateToCreate()"
+            >
                 <mat-icon>add</mat-icon>
             </button>
         </div>

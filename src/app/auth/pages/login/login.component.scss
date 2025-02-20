@@ -1,0 +1,78 @@
+
+.login-container {
+    display: flex;
+    height: 100vh;
+}
+  .login-card-wrapper{
+    // display: flex;
+    // justify-content: center;
+    // margin: 12em 0;
+    margin: auto;
+    box-shadow: 0 10px 20px 2px #00000040;
+    border-radius: 14px;
+  }
+
+  .login-user-img {
+    width: 60px;
+    height: 60px;
+    // text-align: center;
+    // margin-top: -50px;
+  }
+  mat-card {
+    background: #fff !important;
+    // box-shadow: 0 10px 20px 2px #00000040;
+    padding: 20px 0 10px 0;
+    box-shadow: none !important;
+  }
+
+  mat-card-title {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 20px;
+  }
+
+  :host ::ng-deep mat-form-field, 
+  :host ::ng-deep mat-form-field .mat-mdc-form-field-flex,
+  :host ::ng-deep mat-form-field .mdc-text-field
+    {
+    background: #fff !important;
+  }
+
+
+  mat-card-title,
+  mat-card-content {
+    display: flex;
+    justify-content: center;
+  }
+
+  .error {
+    padding: 16px;
+    width: 300px;
+    color: white;
+    background-color: red;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    background-color: #000;
+    border-radius: 3px;
+    button {
+      width: 100%;
+      color: #fff;
+    }
+  }
+
+  .signup-labal {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+
+    a {
+      color: #000;
+      font-weight: 500;
+    }
+  }

@@ -6,7 +6,7 @@
     alt="ss"
   />
   <div class="header-text" [class.hide-header-text]="sideNavCollapsed()">
-    <h2>Ashraf Najjar</h2>
+    <h2>{{user?.firstName + " " + user?.lastName}}</h2>
     <p>Hello world</p>
   </div>
 </div>
@@ -15,7 +15,7 @@
   <a
     mat-list-item
     class="menu-item"
-    *ngFor="let item of menuItems()"
+    *ngFor="let item of filteredMenuItems()"
     [routerLink]="item.route"
     routerLinkActive="selected-menu-item"
     #rla="routerLinkActive"

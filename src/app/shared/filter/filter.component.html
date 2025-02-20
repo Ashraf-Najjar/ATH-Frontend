@@ -43,6 +43,16 @@
                                     </mat-form-field>
                                 </div>
                             </ng-container>
+                            <ng-container [ngSwitch]="item.type">
+                                <div  *ngSwitchCase="'number'">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>{{item.label}}</mat-label>
+                                        <input matInput type="number" [placeholder]="item.label" [formControlName]="item.key">
+                                        <mat-icon matSuffix>{{item?.icon}}</mat-icon>
+                                        <mat-error>{{item?.errorMsg}}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </ng-container>
                         </div>
                     </div>
                 </mat-card-content> 

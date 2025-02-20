@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ITableConfig } from 'src/app/shared/table/table.component';
 import { tableConfig } from '../../config/product-table.config';
@@ -9,6 +9,9 @@ import { ProductFactoryService } from '../../services/product-factory.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { IUser } from 'src/app/user/interfaces/user.interface';
+import { EUserType } from 'src/app/core/enums/EUserType';
 
 @Component({
   selector: 'app-product-list',
@@ -32,10 +35,14 @@ export class ProductListComponent implements OnInit {
 
   productService: IProductService = this.productFactoryService.getProductService();
 
+  user = signal<IUser | undefined>(this.authService.getUser());
+  canCreateProduct = computed(() => this.user()?.role?.toUpperCase() === EUserType.User);
+
   constructor(
     public productFactoryService: ProductFactoryService,
     public router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private authService: AuthService
   ) { }
 
 

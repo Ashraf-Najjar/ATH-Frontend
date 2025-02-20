@@ -57,6 +57,10 @@
   gap: 10px;
 }
 
+.flex-column {
+  flex-direction: column;
+}
+
 mat-card-actions {
   flex-direction: row-reverse !important;
   padding: 24px 14px !important;

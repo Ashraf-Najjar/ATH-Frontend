@@ -1,5 +1,7 @@
-import { Component, Input, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, SimpleChanges, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { EUserType } from 'src/app/core/enums/EUserType';
 
 
 interface IActionConfig {
@@ -9,6 +11,7 @@ interface IActionConfig {
   handler: (item: any) => void;
   color?: string;
   visible?: (item: any) => boolean;
+  role?: EUserType[];
 }
 
 interface IColumnConfig {
@@ -34,6 +37,8 @@ export class TableComponent {
 
   dataSource = new MatTableDataSource<any>([]);
   displayedColumns: string[] = [];
+  authService = inject(AuthService);
+  user = signal(this.authService.getUser());
 
   ngOnInit(): void {
     this.initializeTable();
@@ -59,6 +64,7 @@ export class TableComponent {
           newItem[`${column.key}___value`] = column.value && typeof column.value == "function" ? column.value(newItem) : newItem[column.key];
         });
         
+        this.config.actions = this.config.actions.filter(action => !action?.role || action?.role?.includes(<EUserType>this.user()?.role?.toUpperCase()))
         // Handling actions for each row
         this.config.actions.forEach((action, index) => {
           newItem[`${action.key}${index}`] = !action.visible || action.visible(newItem);

@@ -1,3 +1,5 @@
+import { ICategory } from "src/app/category/interfaces/category.interface"
+import { ISubCategory } from "src/app/sub-category/interfaces/sub-category.interface"
 import { IUser } from "src/app/user/interfaces/user.interface"
 
 export interface IProduct {
@@ -6,8 +8,10 @@ export interface IProduct {
     note: string,
     description: string,
     quantity: number,
-    category: string,
-    subCategory: string
+    price: number,
+    category: ICategory,
+    subCategory: ISubCategory,
+    image?: any
 
     // managers: managersSchema,
     // address: addressSchema,

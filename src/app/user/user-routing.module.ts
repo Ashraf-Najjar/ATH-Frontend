@@ -3,28 +3,42 @@ import { RouterModule, Routes } from "@angular/router";
 import { UserListComponent } from "./pages/user-list/user-list.component";
 import { UserFormComponent } from "./pages/user-form/user-form.component";
 import { UserResolver } from "./reolvers/user.resolver";
+import { EUserType } from "../core/enums/EUserType";
+import { authGuard } from "../core/guards/auth.guard";
 
 const routes: Routes = [
-    {
-      path: 'list',
-      component: UserListComponent,
+  {
+    path: 'list',
+    component: UserListComponent,
+    data: {
+      allowedTypes: [EUserType.User],
     },
-    {
-        path: 'create',
-        component: UserFormComponent,
-    },
-    {
-      path: 'edit/:id',
-      component: UserFormComponent,
-      resolve: {
-        user: UserResolver
-      }
+    canActivate: [authGuard],
   },
-  ]
-  
-  @NgModule({
-      imports: [RouterModule.forChild(routes)],
-      exports: [RouterModule],
-      providers: []
-    })
-  export class UserRoutingModule{}
+  {
+    path: 'create',
+    component: UserFormComponent,
+    data: {
+      allowedTypes: [EUserType.User],
+    },
+    canActivate: [authGuard],
+  },
+  {
+    path: 'edit/:id',
+    component: UserFormComponent,
+    data: {
+      allowedTypes: [EUserType.User],
+    },
+    canActivate: [authGuard],
+    resolve: {
+      user: UserResolver
+    }
+  },
+]
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+  providers: []
+})
+export class UserRoutingModule { }

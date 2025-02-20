@@ -1,0 +1,21 @@
+<mat-card class="upload-container">
+  <div class="drop-zone" (dragover)="onDragOver($event)" (drop)="onFileDropped($event)">
+    <p *ngIf="files?.length === 0">Drag & drop files here</p>
+    <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">Browse Files</button>
+    <input #fileInput type="file" [multiple]="multi" hidden (change)="onFileSelected($event)" />
+  </div>
+
+  <mat-list *ngIf="files.length > 0">
+    <mat-list-item *ngFor="let file of filePaths; trackBy: trackByFile">
+      <mat-icon>attach_file</mat-icon>
+      <span>{{ file.originalname }} ({{ file.size / 1024 | number:'1.0-2' }} KB)</span>
+      <button type="button" mat-icon-button (click)="clearFile(file)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+
+  <mat-progress-bar *ngIf="isUploading" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+
+  <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
+</mat-card>

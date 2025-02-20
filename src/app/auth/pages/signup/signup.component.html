@@ -1,0 +1,65 @@
+<div class="login-container">
+    <div class="login-card-wrapper">
+        <mat-card>
+    
+            <mat-card-title>
+                <div class="login-user-img">
+                    <img src="assets/images/avatar/signup-user.svg" alt="">
+                </div>
+                Signup To E-Market Haven
+                
+            </mat-card-title>
+            <mat-card-content>
+                <form [formGroup]="form" (ngSubmit)="submit()">
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label>First name</mat-label>
+                            <input matInput type="text" placeholder="First name" formControlName="firstName">
+                            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                            <mat-error>First name is required</mat-error>
+                          </mat-form-field>
+                          <mat-form-field>
+                            <mat-label>Last name</mat-label>
+                            <input matInput type="text" placeholder="Last name" formControlName="lastName">
+                            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                            <mat-error>Last name is required</mat-error>
+                          </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label>Phone number</mat-label>
+                            <input matInput type="text" placeholder="Phone number" formControlName="phone">
+                            <mat-icon matSuffix>phone</mat-icon>
+                            <mat-error>Phone is required</mat-error>
+                          </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label>Email</mat-label>
+                            <input type="text" matInput placeholder="Email" formControlName="email">
+                            <mat-icon matSuffix>mail_outline</mat-icon>
+                            <mat-error>Email is required, Please insert a valid email</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field>
+                            <mat-label>Password</mat-label>
+                            <input type="password" matInput placeholder="Password" formControlName="password">
+                            <mat-icon matSuffix>lock_outline</mat-icon>
+                            <mat-error>Password is required</mat-error>
+                        </mat-form-field>
+                    </div>
+        
+                    <div class="button-container">
+                        <button type="submit" mat-button>Signup</button>
+                    </div>
+
+                    <div class="signin-labal">
+                        <label>Already have account, <a [routerLink]="'/auth/login'">Login</a> Now!</label>
+                    </div>
+        
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

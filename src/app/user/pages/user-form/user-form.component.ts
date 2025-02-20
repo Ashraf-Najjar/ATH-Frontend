@@ -57,7 +57,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      phone: new FormControl('', [Validators.required])
+      phone: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
     })
 
   }
